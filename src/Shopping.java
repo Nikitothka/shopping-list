@@ -1,22 +1,21 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Shopping {
     static Scanner scanner = new Scanner(System.in);
     static int productCount = 0;
+    static boolean isWorks = true;
 
     public static void main(String[] args) {
         System.out.println("Вас приветствует список покупок!");
         int max_number_products = 8;
         String[] shoppingList = new String[max_number_products];
 
-        String[] testShoppingList = {"хлеб", "сливочноемасло", "сыр", "докторскаяколбаса",null,null,null,null};  //убрать
-        productCount = 4; // убрать
-        while (true) {
-            testShoppingList = check_select_command(get_select_command(scanner), testShoppingList);
 
+        while (isWorks) {
+            check_select_command(get_select_command(scanner), shoppingList, max_number_products);
         }
     }
+
 
     public static int get_select_command(Scanner scanner) {
         System.out.println("Выберите одну из команд:");
@@ -29,16 +28,16 @@ public class Shopping {
 
     }
 
-    public static String[] check_select_command(int actionNumber, String[] shoppingList) {
+    public static void check_select_command(int actionNumber, String[] shoppingList,int max_number_products) {
         switch (actionNumber) {
             case 1:
-                add_product_list(shoppingList);
+                add_product_list(shoppingList, max_number_products);
                 break;
             case 2:
                 show_list(shoppingList);
                 break;
             case 3:
-                clear_list();
+                clear_list(shoppingList);
                 break;
             case 4:
                 finish_work();
@@ -47,21 +46,19 @@ public class Shopping {
                 System.out.println("Неизвестная команда!");
                 break;
         }
-        return shoppingList;
     }
 
-    public static String[] add_product_list(String[] shoppingList) {
+    public static void add_product_list(String[] shoppingList,int max_number_products) {
         String productName = scanner.next();
-        if (check_adding_products(shoppingList, productName)) {
+        if (check_adding_products(shoppingList, productName, max_number_products)) {
             shoppingList[productCount] = productName;
             productCount++;
         }
-        return shoppingList;
     }
 
 
-    public static boolean check_adding_products(String[] shoppingList, String productName) {
-        if (productCount == 8) {
+    public static boolean check_adding_products(String[] shoppingList, String productName,int max_number_products) {
+        if (productCount == max_number_products) {
             System.out.println("Товар " + productName + " Нельзя добавить, вы заполнили корзину!");
             return false;
         } else {
@@ -77,7 +74,7 @@ public class Shopping {
     }
 
     public static void show_list(String[] shoppingList) {
-        if (productCount == 0){
+        if (productCount == 0) {
             System.out.println("Корзина пуста!");
         }
         for (int i = 0; i < productCount; i++) {
@@ -85,11 +82,16 @@ public class Shopping {
         }
     }
 
-    public static void clear_list() {
+    public static void clear_list(String[] shoppingList) {
+        for (int i = 0; i < productCount; i++) {
+            shoppingList[i] = null;
+            System.out.println("Список покупок очищен.");
+        }
     }
 
     public static void finish_work() {
-
+        isWorks = false;
+        System.out.println("Работа завершена.");
     }
 
 }
