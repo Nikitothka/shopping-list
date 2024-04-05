@@ -54,6 +54,7 @@ public class Shopping {
         if (check_adding_products(shoppingList, productName, max_number_products)) {
             shoppingList[productCount] = productName;
             productCount++;
+            System.out.println(productName + " добавлен в список");
         }
     }
 
