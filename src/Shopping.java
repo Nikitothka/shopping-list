@@ -28,7 +28,7 @@ public class Shopping {
 
     }
 
-    public static void check_select_command(int actionNumber, String[] shoppingList,int max_number_products) {
+    public static void check_select_command(int actionNumber, String[] shoppingList, int max_number_products) {
         switch (actionNumber) {
             case 1:
                 add_product_list(shoppingList, max_number_products);
@@ -48,7 +48,8 @@ public class Shopping {
         }
     }
 
-    public static void add_product_list(String[] shoppingList,int max_number_products) {
+    public static void add_product_list(String[] shoppingList, int max_number_products) {
+        System.out.println("Какой товар добавить?");
         String productName = scanner.next();
         if (check_adding_products(shoppingList, productName, max_number_products)) {
             shoppingList[productCount] = productName;
@@ -57,7 +58,7 @@ public class Shopping {
     }
 
 
-    public static boolean check_adding_products(String[] shoppingList, String productName,int max_number_products) {
+    public static boolean check_adding_products(String[] shoppingList, String productName, int max_number_products) {
         if (productCount == max_number_products) {
             System.out.println("Товар " + productName + " Нельзя добавить, вы заполнили корзину!");
             return false;
@@ -85,8 +86,10 @@ public class Shopping {
     public static void clear_list(String[] shoppingList) {
         for (int i = 0; i < productCount; i++) {
             shoppingList[i] = null;
-            System.out.println("Список покупок очищен.");
         }
+        productCount = 0;
+        System.out.println("Список покупок очищен.");
+
     }
 
     public static void finish_work() {
