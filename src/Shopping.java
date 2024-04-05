@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Shopping {
@@ -9,7 +10,7 @@ public class Shopping {
         int max_number_products = 8;
         String[] shoppingList = new String[max_number_products];
 
-        String[] testShoppingList = {"хлеб", "сливочноемасло", "сыр", "докторскаяколбаса"};  //убрать
+        String[] testShoppingList = {"хлеб", "сливочноемасло", "сыр", "докторскаяколбаса",null,null,null,null};  //убрать
         productCount = 4; // убрать
         while (true) {
             testShoppingList = check_select_command(get_select_command(scanner), testShoppingList);
@@ -34,7 +35,7 @@ public class Shopping {
                 add_product_list(shoppingList);
                 break;
             case 2:
-                Show_list(shoppingList);
+                show_list(shoppingList);
                 break;
             case 3:
                 clear_list();
@@ -51,12 +52,34 @@ public class Shopping {
 
     public static String[] add_product_list(String[] shoppingList) {
         String productName = scanner.next();
-        shoppingList[productCount] = productName;
-        productCount++;
+        if (check_adding_products(shoppingList, productName)) {
+            shoppingList[productCount] = productName;
+            productCount++;
+        }
         return shoppingList;
     }
 
-    public static void Show_list(String[] shoppingList) {
+
+    public static boolean check_adding_products(String[] shoppingList, String productName) {
+        if (productCount == 8) {
+            System.out.println("Товар " + productName + " Нельзя добавить, вы заполнили корзину!");
+            return false;
+        } else {
+            for (int i = 0; i < productCount; i++) {
+                if (shoppingList[i].equals(productName)) {
+                    System.out.println("Товар " + productName + " уже есть в списке.");
+                    return false;
+                }
+
+            }
+            return true;
+        }
+    }
+
+    public static void show_list(String[] shoppingList) {
+        if (productCount == 0){
+            System.out.println("Корзина пуста!");
+        }
         for (int i = 0; i < productCount; i++) {
             System.out.println("Продукт " + (i + 1) + ":" + shoppingList[i]);
         }
@@ -66,6 +89,7 @@ public class Shopping {
     }
 
     public static void finish_work() {
+
     }
 
 }
