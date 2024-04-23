@@ -17,29 +17,29 @@ public class Shopping {
     }
 
 
-    public static int get_select_command(Scanner scanner) {
+    public static String get_select_command(Scanner scanner) {
         System.out.println("Выберите одну из команд:");
         System.out.println("1. Добавить товар в список");
         System.out.println("2. Показать список");
         System.out.println("3. Очистить список");
         System.out.println("4. Завершить работу");
 
-        return scanner.nextInt();
+        return scanner.next();
 
     }
 
-    public static void check_select_command(int actionNumber, String[] shoppingList, int max_number_products) {
+    public static void check_select_command(String actionNumber, String[] shoppingList, int max_number_products) {
         switch (actionNumber) {
-            case 1:
+            case "1":
                 add_product_list(shoppingList, max_number_products);
                 break;
-            case 2:
+            case "2":
                 show_list(shoppingList);
                 break;
-            case 3:
+            case "3":
                 clear_list(shoppingList);
                 break;
-            case 4:
+            case "4":
                 finish_work();
                 break;
             default:
@@ -79,6 +79,7 @@ public class Shopping {
         if (productCount == 0) {
             System.out.println("Корзина пуста!");
         }
+        System.out.println("Ваш список покупок");
         for (int i = 0; i < productCount; i++) {
             System.out.println("Продукт " + (i + 1) + ":" + shoppingList[i]);
         }
